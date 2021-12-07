@@ -1,0 +1,19 @@
+{
+  "name": "advent-of-code-2021",
+  "version": "1.0.0",
+  "description": "Solutions to the Advent of Code 2021 puzzles.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/calledtoconstruct/advent-of-code-2021.git"
+  },
+  "author": "Joseph Woolley",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/calledtoconstruct/advent-of-code-2021/issues"
+  },
+  "homepage": "https://github.com/calledtoconstruct/advent-of-code-2021#readme",
+  "dependencies": {
+    "expect.js": "^0.3.1",
+    "mocha": "^9.1.3"
+  }
+}
