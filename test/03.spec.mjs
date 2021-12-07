@@ -1,43 +1,11 @@
-import expect from 'expect.js';
-import { readFileSync } from 'fs';
 import { solvePartOne, solvePartTwo } from '../03.mjs';
+import { runTest } from '../test.mjs'
 
-const when = (calculator, description, fileName, then) => {
-
-  let result;
-
-  describe(`when pulling the diagnostic report ${description}`, () => {
-
-    beforeEach(() => {
-      const data = readFileSync(fileName, { encoding: 'ascii' })
-        .split('\n');
-      result = calculator(data);
-    });
-
-    then(() => result);
-
-  });
-
-}
+const description = 'when pulling the diagnostic report';
 
 [
-  { part: 'one', file: '03.sample.data', calculator: solvePartOne, result: 198 },
-  { part: 'one', file: '03.data', calculator: solvePartOne, result: 3969000 },
-  { part: 'two', file: '03.sample.data', calculator: solvePartTwo, result: 230 },
-  { part: 'two', file: '03.data', calculator: solvePartTwo, result: 4267809 }
-].forEach(scenario => {
-
-  describe(`given the data from ${scenario.file}`, () => {
-  
-    when(scenario.calculator, `for part ${scenario.part}`, scenario.file, getResult => {
-  
-      it(`then result should be ${scenario.result}`, () => {
-        const result = getResult();
-        expect(result).to.be(scenario.result);
-      });
-  
-    });
-  
-  });
-
-});
+  { description: `${description} for part one`, file: '03.sample.data', calculator: solvePartOne, result: 198 },
+  { description: `${description} for part one`, file: '03.data', calculator: solvePartOne, result: 3969000 },
+  { description: `${description} for part two`, file: '03.sample.data', calculator: solvePartTwo, result: 230 },
+  { description: `${description} for part two`, file: '03.data', calculator: solvePartTwo, result: 4267809 }
+].forEach(runTest);

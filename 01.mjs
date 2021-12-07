@@ -2,8 +2,9 @@ function calculatePartOne([accumulator, previous], current) {
   return [accumulator + (previous < current ? 1 : 0), current];
 }
 
-function solvePartOne(data) {
-  return data
+function solvePartOne(lines) {
+  return lines
+    .map(depth => parseInt(depth, 10))
     .reduce(calculatePartOne, [0, Infinity])
     .shift();
 }
@@ -18,8 +19,9 @@ function calculatePartTwo([accumulator, previous, values], current) {
   return [accumulator + (previous < sumOfValues ? 1 : 0), sumOfValues, values];
 }
 
-function solvePartTwo(data) {
-  return data
+function solvePartTwo(lines) {
+  return lines
+    .map(depth => parseInt(depth, 10))
     .reduce(calculatePartTwo, [0, Infinity, []])
     .shift();
 }
