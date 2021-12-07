@@ -2,11 +2,11 @@ import expect from 'expect.js';
 import { readFileSync } from 'fs';
 import { solvePartOne, solvePartTwo } from '../01.mjs';
 
-const when = (fileName, calculator, then) => {
+const when = (calculator, description, fileName, then) => {
 
   let result;
 
-  describe('when counting the number of times the depth increases', () => {
+  describe(`when counting the number of times the depth increases ${description}`, () => {
 
     beforeEach(() => {
       const data = readFileSync(fileName, { encoding: 'ascii' })
@@ -21,44 +21,22 @@ const when = (fileName, calculator, then) => {
 
 }
 
-describe('given the sample data set', () => {
+[
+  { part: 'one', file: '01.sample.data', calculator: solvePartOne, result: 7 },
+  { part: 'one', file: '01.data', calculator: solvePartOne, result: 1602 },
+  { part: 'two', file: '01.sample.data', calculator: solvePartTwo, result: 5 },
+  { part: 'two', file: '01.data', calculator: solvePartTwo, result: 1633 }
+].forEach(scenario => {
 
-  when('01.sample.data', solvePartOne, getResult => {
-
-    it('then result should be 7', () => {
-      const result = getResult();
-      expect(result).to.be(7);
-    });
-
-  });
-
-  when('01.sample.data', solvePartTwo, getResult => {
-
-    it('then result should be 5', () => {
-      const result = getResult();
-      expect(result).to.be(5);
-    });
-
-  });
-
-});
-
-describe('given the data set', () => {
-
-  when('01.data', solvePartOne, getResult => {
-
-    it('then result should be 1602', () => {
-      const result = getResult();
-      expect(result).to.be(1602);
-    });
-
-  });
-
-  when('01.data', solvePartTwo, getResult => {
-
-    it('then result should be 1633', () => {
-      const result = getResult();
-      expect(result).to.be(1633);
+  describe(`given the data from ${scenario.file}`, () => {
+  
+    when(scenario.calculator, `for part ${scenario.part}`, scenario.file, getResult => {
+  
+      it(`then result should be ${scenario.result}`, () => {
+        const result = getResult();
+        expect(result).to.be(scenario.result);
+      });
+  
     });
 
   });

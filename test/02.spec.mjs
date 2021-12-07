@@ -2,11 +2,11 @@ import expect from 'expect.js';
 import { readFileSync } from 'fs';
 import { solvePartOne, solvePartTwo } from '../02.mjs';
 
-const when = (fileName, calculator, then) => {
+const when = (calculator, description, fileName, then) => {
 
   let result;
 
-  describe('when navigating the submarine', () => {
+  describe(`when navigating the submarine ${description}`, () => {
 
     beforeEach(() => {
       const data = readFileSync(fileName, { encoding: 'ascii' })
@@ -20,46 +20,24 @@ const when = (fileName, calculator, then) => {
 
 }
 
-describe('given the sample data set', () => {
+[
+  { part: 'one', file: '02.sample.data', calculator: solvePartOne, result: 150 },
+  { part: 'one', file: '02.data', calculator: solvePartOne, result: 1882980 },
+  { part: 'two', file: '02.sample.data', calculator: solvePartTwo, result: 900 },
+  { part: 'two', file: '02.data', calculator: solvePartTwo, result: 1971232560 },
+].forEach(scenario => {
 
-  when('02.sample.data', solvePartOne, getResult => {
-
-    it('then result should be 150', () => {
-      const result = getResult();
-      expect(result).to.be(150);
+  describe(`given the data from ${scenario.file}`, () => {
+  
+    when(scenario.calculator, `for part ${scenario.part}`, scenario.file, getResult => {
+  
+      it(`then result should be ${scenario.result}`, () => {
+        const result = getResult();
+        expect(result).to.be(scenario.result);
+      });
+  
     });
-
-  });
-
-  when('02.sample.data', solvePartTwo, getResult => {
-
-    it('then result should be 900', () => {
-      const result = getResult();
-      expect(result).to.be(900);
-    });
-
-  });
-
-});
-
-describe('given the data set', () => {
-
-  when('02.data', solvePartOne, getResult => {
-
-    it('then result should be 1882980', () => {
-      const result = getResult();
-      expect(result).to.be(1882980);
-    });
-
-  });
-
-  when('02.data', solvePartTwo, getResult => {
-
-    it('then result should be 1971232560', () => {
-      const result = getResult();
-      expect(result).to.be(1971232560);
-    });
-
+  
   });
 
 });
