@@ -1,8 +1,8 @@
 import expect from 'expect.js';
 import { readFileSync } from 'fs';
-import { calculatePartOne } from '../01.mjs';
+import { solvePartOne, solvePartTwo } from '../01.mjs';
 
-const when = (fileName, then) => {
+const when = (fileName, calculator, then) => {
 
   let result;
 
@@ -12,7 +12,7 @@ const when = (fileName, then) => {
       const data = readFileSync(fileName, { encoding: 'ascii' })
         .split('\n')
         .map(depth => parseInt(depth, 10));
-      result = calculatePartOne(data);
+      result = calculator(data);
     });
 
     then(() => result);
@@ -23,7 +23,7 @@ const when = (fileName, then) => {
 
 describe('given the sample data set', () => {
 
-  when('01.sample.data', getResult => {
+  when('01.sample.data', solvePartOne, getResult => {
 
     it('then result should be 7', () => {
       const result = getResult();
@@ -32,15 +32,33 @@ describe('given the sample data set', () => {
 
   });
 
+  when('01.sample.data', solvePartTwo, getResult => {
+
+    it('then result should be 5', () => {
+      const result = getResult();
+      expect(result).to.be(5);
+    });
+
+  });
+
 });
 
 describe('given the data set', () => {
 
-  when('01.data', getResult => {
+  when('01.data', solvePartOne, getResult => {
 
     it('then result should be 1602', () => {
       const result = getResult();
       expect(result).to.be(1602);
+    });
+
+  });
+
+  when('01.data', solvePartTwo, getResult => {
+
+    it('then result should be 1633', () => {
+      const result = getResult();
+      expect(result).to.be(1633);
     });
 
   });
