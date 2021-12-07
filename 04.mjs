@@ -94,6 +94,35 @@ function solvePartOne(lines) {
   return score * number;
 }
 
+function solvePartTwo(lines) {
+  const numbers = readNumbers(lines.shift());
+  const boards = readBoards(lines, []);
+  let losing = [];
+  let index = 0;
+  let number;
+  do {
+    number = numbers[index++];
+    losing = boards.reduce((losers, board) => {
+      markBoard(board, number);
+      if (!rowHit(board) && !columnHit(board)) {
+        losers.push(board);
+      }
+      return losers;
+    }, []);
+  } while (losing.length > 1);
+  const loser = losing[0];
+  while (!rowHit(loser) && !columnHit(loser)) {
+    number = numbers[index++];
+    markBoard(loser, number);
+  }
+  const score = loser
+    .flat()
+    .filter(cell => !cell.hit)
+    .reduce((accumulator, cell) => accumulator + cell.value, 0);
+  return score * number;
+}
+
 export {
-  solvePartOne
+  solvePartOne,
+  solvePartTwo
 };
