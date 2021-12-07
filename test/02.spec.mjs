@@ -1,6 +1,6 @@
 import expect from 'expect.js';
 import { readFileSync } from 'fs';
-import { solvePartOne } from '../02.mjs';
+import { solvePartOne, solvePartTwo } from '../02.mjs';
 
 const when = (fileName, calculator, then) => {
 
@@ -31,6 +31,15 @@ describe('given the sample data set', () => {
 
   });
 
+  when('02.sample.data', solvePartTwo, getResult => {
+
+    it('then result should be 900', () => {
+      const result = getResult();
+      expect(result).to.be(900);
+    });
+
+  });
+
 });
 
 describe('given the data set', () => {
@@ -40,6 +49,15 @@ describe('given the data set', () => {
     it('then result should be 1882980', () => {
       const result = getResult();
       expect(result).to.be(1882980);
+    });
+
+  });
+
+  when('02.data', solvePartTwo, getResult => {
+
+    it('then result should be 1971232560', () => {
+      const result = getResult();
+      expect(result).to.be(1971232560);
     });
 
   });
