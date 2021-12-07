@@ -1,6 +1,6 @@
 import expect from 'expect.js';
 import { readFileSync } from 'fs';
-import { solvePartOne } from '../03.mjs';
+import { solvePartOne, solvePartTwo } from '../03.mjs';
 
 const when = (calculator, description, fileName, then) => {
 
@@ -22,7 +22,9 @@ const when = (calculator, description, fileName, then) => {
 
 [
   { part: 'one', file: '03.sample.data', calculator: solvePartOne, result: 198 },
-  { part: 'one', file: '03.data', calculator: solvePartOne, result: 3969000 }
+  { part: 'one', file: '03.data', calculator: solvePartOne, result: 3969000 },
+  { part: 'two', file: '03.sample.data', calculator: solvePartTwo, result: 230 },
+  { part: 'two', file: '03.data', calculator: solvePartTwo, result: 4267809 }
 ].forEach(scenario => {
 
   describe(`given the data from ${scenario.file}`, () => {

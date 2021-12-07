@@ -22,6 +22,40 @@ function solvePartOne(data) {
   return gamma * epsilon;
 }
 
+function split(data, index) {
+  const zeros = [];
+  const ones = [];
+
+  data.forEach(entry => {
+    if (entry.charAt(index) === '0') {
+      zeros.push(entry);
+    } else {
+      ones.push(entry);
+    }
+  });
+
+  const most = (zeros.length > ones.length)
+    ? zeros
+    : ones;
+
+  const least = (zeros.length <= ones.length)
+    ? zeros
+    : ones;
+
+  return {
+    oxygen: most.length > 1 ? split(most, index + 1).oxygen : most[0],
+    scrubber: least.length > 1 ? split(least, index + 1).scrubber : least[0]
+  };
+}
+
+function solvePartTwo(data) {
+
+  const { oxygen, scrubber } = split(data, 0);
+
+  return parseInt(oxygen, 2) * parseInt(scrubber, 2);
+}
+
 export {
-  solvePartOne
+  solvePartOne,
+  solvePartTwo
 };
