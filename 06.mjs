@@ -1,19 +1,18 @@
 
-function calculateOffspring(year, age) {
+function calculateOffspring(cache, remaining) {
   let offspring = 0;
-  if (year >= age) {
-    const remaining = year - age;
-    const births = Math.floor(remaining / 7);
-    for (let child = 0; child <= births; child++) {
-      const left = remaining - (child * 7) - 2;
-      offspring += calculateOffspring(left, 7);
-    }
+  const births = Math.floor(remaining / 7);
+  for (let child = 0; child <= births; child++) {
+    const left = remaining - (child * 7) - 9;
+    offspring += (left < 0)
+      ? 1
+      : cache[left] || calculateOffspring(cache, left);
   }
-  return offspring + 1;
+  return cache[remaining] = offspring + 1;
 }
 
-function solvePartOne(lines) {
-  const ages = lines
+function loadAges(lines) {
+  return lines
     .map(line => line.split(',')
       .map(age => parseInt(age, 10))
       .reduce((accumulator, age) => {
@@ -22,9 +21,22 @@ function solvePartOne(lines) {
       }, [])
     )
     .pop();
-  return ages.reduce((accumulator, count, age) => accumulator + (count * (calculateOffspring(79, age))), 0);
+}
+
+function years(years, ages) {
+  return loadAges(ages)
+    .reduce((accumulator, count, age) => accumulator + (count * (calculateOffspring([], years - age - 1))), 0);
+}
+
+function solvePartOne(ages) {
+  return years(80, ages);
+}
+
+function solvePartTwo(ages) {
+  return years(256, ages);
 }
 
 export {
-  solvePartOne
+  solvePartOne,
+  solvePartTwo
 };
