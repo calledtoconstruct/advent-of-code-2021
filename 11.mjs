@@ -44,24 +44,49 @@ function step(grid) {
 }
 
 function solvePartOne(input) {
-  let totalFlashes = 0;
   let grid = input.map(line => line.split('').map(value => parseInt(value, 10)));
+  let totalFlashes = 0;
   let count = 100;
   while (count-- > 0) {
     let compliment = step(grid);
-    let flashes;
-    let complete = false;
-    while (!complete) {
+    let complete;
+    do {
       grid = sum(grid, compliment);
+      let flashes;
       [flashes, compliment] = flash(grid);
       totalFlashes += flashes;
       complete = 0 === flashes;
-    }
+    } while (!complete);
     grid = reset(grid);
   }
   return totalFlashes;
 }
 
+function solvePartTwo(input) {
+  let grid = input.map(line => line.split('').map(value => parseInt(value, 10)));
+  const height = grid.length;
+  const width = grid[0].length;
+  const all = (height * width);
+  let iteration = 0;
+  let numberOfFlashes;
+  do {
+    numberOfFlashes = 0;
+    iteration++;
+    let compliment = step(grid);
+    let complete;
+    do {
+      grid = sum(grid, compliment);
+      let flashes;
+      [flashes, compliment] = flash(grid);
+      numberOfFlashes += flashes;
+      complete = 0 === flashes;
+    } while (!complete);
+    grid = reset(grid);
+  } while (numberOfFlashes < all);
+  return iteration;
+}
+
 export {
-  solvePartOne
+  solvePartOne,
+  solvePartTwo
 };
